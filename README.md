@@ -1,38 +1,34 @@
 # testmu-sdet2-mayankrana
 
-Playwright + TypeScript automation framework with UI, API, and integration coverage.
+Playwright + TypeScript test automation scaffold for TestMu SDET Task 1.
 
-## Stack
-- Playwright Test
-- TypeScript
-- Ajv (schema validation)
+## Goals
+- Establish a clean, scalable automation project structure before writing tests.
+- Separate concerns across page objects, tests, utilities, configuration, and test data.
+- Keep onboarding and future extension simple.
 
-## Project Structure
+## Tech Stack
+- **Framework:** Playwright
+- **Language:** TypeScript
+- **Test Runner:** Playwright Test
+
+## Proposed Folder Structure
 ```text
 .
-├── config/              # Environment-driven configuration
-├── docs/                # Architecture notes
-├── pages/               # Page Objects (POM)
-├── test-data/           # Externalized test datasets
-├── tests/
-│   ├── ui/              # UI scenarios
-│   ├── api/             # API scenarios
-│   └── integration/     # End-to-end UI+API flow
-├── utils/               # Reusable waits/assertions/schema helpers
-├── playwright.config.ts
-└── test-strategy.md
+├── config/           # Environment and runtime config
+├── docs/             # Architecture and planning notes
+├── pages/            # Page Object Model classes
+├── test-data/        # Static test inputs / fixtures
+├── tests/            # Test specs
+└── utils/            # Shared helpers (api, data, logger, etc.)
 ```
 
-## Key Framework Features
-- POM with encapsulated selectors (`pages/*`).
-- Data-driven login tests (`test-data/login-users.json`).
-- Reusable utilities (wait/retry/assertions/schema validation).
-- Config-driven environment switching through env vars.
-- HTML reporting + failure artifacts (screenshots/video/trace).
+## Quick Start (next step)
+1. Initialize Node project (`npm init -y`).
+2. Install Playwright (`npm init playwright@latest` or manual setup).
+3. Configure `playwright.config.ts` and create baseline smoke tests.
 
-## Run
-```bash
-npm install
-npx playwright install
-npm test
-```
+## Task 1 Status
+- [x] Planning committed (README + architecture note + scaffold)
+- [ ] Framework initialization
+- [ ] First executable tests
