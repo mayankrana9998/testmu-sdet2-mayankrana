@@ -23,10 +23,26 @@ Playwright + TypeScript test automation scaffold for TestMu SDET Task 1.
 └── utils/            # Shared helpers (api, data, logger, etc.)
 ```
 
-## Quick Start (next step)
-1. Initialize Node project (`npm init -y`).
-2. Install Playwright (`npm init playwright@latest` or manual setup).
-3. Configure `playwright.config.ts` and create baseline smoke tests.
+## Quick Start
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Install Playwright browsers:
+   ```bash
+   npx playwright install
+   ```
+4. Run the full test suite in CI mode:
+   ```bash
+   npm run test:ci
+   ```
+5. Open the generated HTML report:
+   ```bash
+   npx playwright show-report
+   ```
+
+> Make sure the repository is public for review.
 
 ## CI/CD Integration
 This repository now includes a fully wired GitHub Actions pipeline at `.github/workflows/playwright-ci.yml`.
