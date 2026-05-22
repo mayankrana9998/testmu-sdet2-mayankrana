@@ -5,6 +5,7 @@
   "description": "Playwright + TypeScript hybrid UI/API/Integration automation framework",
   "scripts": {
     "test": "playwright test",
+    "test:ci": "playwright test --workers=2",
     "test:ui": "playwright test tests/ui",
     "test:api": "playwright test tests/api",
     "test:integration": "playwright test tests/integration",

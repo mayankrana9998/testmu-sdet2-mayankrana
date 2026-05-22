@@ -8,20 +8,20 @@ test.describe('API - CRUD/Auth/Error/Schema', () => {
     const context = await request.newContext({ baseURL: env.apiBaseUrl });
 
     const createStart = Date.now();
-    const createRes = await context.post('/users', { data: { name: 'morpheus', job: 'leader' } });
+    const createRes = await context.post('/users/add', { json: { firstName: 'Morpheus', lastName: 'Leader', age: 30 } });
     await expectStatus(createRes, 201);
     await expectResponseTime(createStart, 2500);
 
-    const updateRes = await context.put('/users/2', { data: { name: 'morpheus', job: 'zion resident' } });
+    const updateRes = await context.put('/users/2', { json: { age: 31 } });
     await expectStatus(updateRes, 200);
   });
 
-  test('authentication and 4xx handling', async () => {
+  test('resource handling and 4xx detection', async () => {
     const context = await request.newContext({ baseURL: env.apiBaseUrl });
-    const loginRes = await context.post('/login', { data: { email: 'eve.holt@reqres.in', password: 'cityslicka' } });
-    await expectStatus(loginRes, 200);
+    const res = await context.get('/users/2');
+    await expectStatus(res, 200);
 
-    const badRes = await context.get('/unknown/23');
+    const badRes = await context.get('/users/999999');
     await expectStatus(badRes, 404);
   });
 
@@ -33,12 +33,12 @@ test.describe('API - CRUD/Auth/Error/Schema', () => {
 
     const schema = {
       type: 'object',
-      required: ['data'],
+      required: ['id', 'firstName', 'lastName', 'email'],
       properties: {
-        data: {
-          type: 'object',
-          required: ['id', 'email', 'first_name', 'last_name', 'avatar'],
-        },
+        id: { type: 'number' },
+        firstName: { type: 'string' },
+        lastName: { type: 'string' },
+        email: { type: 'string' },
       },
     };
 

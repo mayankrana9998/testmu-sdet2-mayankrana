@@ -28,6 +28,12 @@ Playwright + TypeScript test automation scaffold for TestMu SDET Task 1.
 2. Install Playwright (`npm init playwright@latest` or manual setup).
 3. Configure `playwright.config.ts` and create baseline smoke tests.
 
+## CI/CD Integration
+This repository now includes a fully wired GitHub Actions pipeline at `.github/workflows/playwright-ci.yml`.
+It runs the Playwright suite on `push` and `pull_request`, uploads the generated HTML report as an artifact, and optionally sends Slack failure notifications when `SLACK_WEBHOOK` is configured.
+
+For full setup and example output, see `docs/ci-integration.md`.
+
 ## Task 1 Status
 - [x] Planning committed (README + architecture note + scaffold)
 - [ ] Framework initialization

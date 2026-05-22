@@ -2,9 +2,9 @@ import { expect, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class LoginPage extends BasePage {
-  private username = this.page.getByTestId('username');
-  private password = this.page.getByTestId('password');
-  private loginButton = this.page.getByTestId('login-button');
+  private username = this.page.locator('#user-name');
+  private password = this.page.locator('#password');
+  private loginButton = this.page.locator('#login-button');
   private error = this.page.locator('[data-test="error"]');
 
   constructor(page: Page) {

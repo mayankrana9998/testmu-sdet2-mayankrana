@@ -3,7 +3,7 @@ import { BasePage } from './base.page';
 
 export class DashboardPage extends BasePage {
   private title = this.page.locator('.title');
-  private sortDropdown = this.page.locator('[data-test="product-sort-container"]');
+  private sortDropdown = this.page.locator('.product_sort_container');
   private inventoryItems = this.page.locator('.inventory_item');
 
   constructor(page: Page) {

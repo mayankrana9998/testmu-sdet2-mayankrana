@@ -1,0 +1,51 @@
+name: Playwright CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Test on ${{ matrix.browser }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox]
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test --workers=2 --project=${{ matrix.browser }}
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report
+
+      - name: Notify Slack on failure
+        if: failure() && env.SLACK_WEBHOOK
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+            -d '{"text":"Playwright CI failed for ${GITHUB_WORKFLOW} on ${GITHUB_REF} (browser=${{ matrix.browser }})\n${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"}' \
+            "$SLACK_WEBHOOK"
